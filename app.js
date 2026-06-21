@@ -763,6 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Setup Collections Navbar Dropdown
     setupNavbarDropdown();
+    setupSmoothScrolling();
 });
 
 // Render Hero and Contacts dynamically from Local Storage
@@ -1330,11 +1331,7 @@ function setupNavbarDropdown() {
                         e.stopPropagation();
 
                         openProductModal(item, subcat.title);
-
-                        // Close dropdowns
-                        desktopDropdown.classList.remove("active");
-                        desktopToggle.classList.remove("active");
-                        desktopDropdown.classList.remove("expanded");
+                        closeDesktopDropdown();
                     });
                     panel.appendChild(productLink);
                 });
@@ -1360,36 +1357,37 @@ function setupNavbarDropdown() {
             contentDiv.appendChild(tabsBar);
             contentDiv.appendChild(panelsContainer);
 
-            // Desktop Category hover expander
+            // Desktop Category hover expander with 150ms delay for hover tunneling stability
+            let activationTimeout;
+
             headerDiv.addEventListener("mouseenter", () => {
-                const isActive = catDiv.classList.contains("active");
-                if (isActive) return;
+                clearTimeout(activationTimeout);
 
-                // Close other categories
-                desktopDropdown.querySelectorAll(".dropdown-category").forEach(otherCat => {
-                    if (otherCat !== catDiv) {
-                        otherCat.classList.remove("active");
-                        otherCat.querySelectorAll(".dropdown-subcategory-tab").forEach(t => t.classList.remove("active"));
-                        otherCat.querySelectorAll(".dropdown-products-panel").forEach(p => p.classList.remove("active"));
-                    }
-                });
+                activationTimeout = setTimeout(() => {
+                    const isActive = catDiv.classList.contains("active");
+                    if (isActive) return;
 
-                catDiv.classList.add("active");
-                desktopDropdown.classList.add("expanded");
+                    // Close other categories immediately
+                    desktopDropdown.querySelectorAll(".dropdown-category").forEach(otherCat => {
+                        if (otherCat !== catDiv) {
+                            otherCat.classList.remove("active");
+                            otherCat.querySelectorAll(".dropdown-subcategory-tab").forEach(t => t.classList.remove("active"));
+                            otherCat.querySelectorAll(".dropdown-products-panel").forEach(p => p.classList.remove("active"));
+                        }
+                    });
+
+                    catDiv.classList.add("active");
+                    desktopDropdown.classList.add("expanded");
+                }, 150);
+            });
+
+            headerDiv.addEventListener("mouseleave", () => {
+                clearTimeout(activationTimeout);
             });
 
             headerDiv.addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-            });
-
-            // Collapse category and restore dropdown width when mouse leaves this category
-            catDiv.addEventListener("mouseleave", () => {
-                catDiv.classList.remove("active");
-                desktopDropdown.classList.remove("expanded");
-                // Reset active tabs and panels inside this category
-                catDiv.querySelectorAll(".dropdown-subcategory-tab").forEach(t => t.classList.remove("active"));
-                catDiv.querySelectorAll(".dropdown-products-panel").forEach(p => p.classList.remove("active"));
             });
 
         } else {
@@ -1493,30 +1491,52 @@ function setupNavbarDropdown() {
     generateDropdownHTML();
 
     // Hover-based activation on Desktop
+    const closeDesktopDropdown = () => {
+        desktopDropdown.classList.remove("active");
+        desktopToggle.classList.remove("active");
+        desktopDropdown.classList.remove("expanded");
+        // Reset active categories
+        desktopDropdown.querySelectorAll(".dropdown-category").forEach(otherCat => {
+            otherCat.classList.remove("active");
+            otherCat.querySelectorAll(".dropdown-subcategory-tab").forEach(t => t.classList.remove("active"));
+            otherCat.querySelectorAll(".dropdown-products-panel").forEach(p => p.classList.remove("active"));
+        });
+    };
+
     let hoverTimeout;
     const navDropdownContainer = document.querySelector(".nav-dropdown-container");
     if (navDropdownContainer) {
         navDropdownContainer.addEventListener("mouseenter", () => {
             clearTimeout(hoverTimeout);
-            generateDropdownHTML();
+            if (!desktopDropdown.classList.contains("active")) {
+                desktopDropdown.classList.remove("expanded");
+                generateDropdownHTML();
+            }
             desktopDropdown.classList.add("active");
             desktopToggle.classList.add("active");
         });
 
         navDropdownContainer.addEventListener("mouseleave", () => {
             hoverTimeout = setTimeout(() => {
-                desktopDropdown.classList.remove("active");
-                desktopToggle.classList.remove("active");
-                desktopDropdown.classList.remove("expanded");
-                // Reset active categories when mouse leaves
-                desktopDropdown.querySelectorAll(".dropdown-category").forEach(otherCat => {
-                    otherCat.classList.remove("active");
-                    otherCat.querySelectorAll(".dropdown-subcategory-tab").forEach(t => t.classList.remove("active"));
-                    otherCat.querySelectorAll(".dropdown-products-panel").forEach(p => p.classList.remove("active"));
-                });
-            }, 300); // 300ms grace period to allow smooth cursor movements
+                closeDesktopDropdown();
+            }, 800); // 800ms grace period so it stays open stably and doesn't close fast
         });
     }
+
+    // Close desktop dropdown immediately when hovering other nav links
+    const otherNavLinks = document.querySelectorAll(".nav-menu .nav-link:not(#collections-nav-link)");
+    otherNavLinks.forEach(link => {
+        link.addEventListener("mouseenter", () => {
+            closeDesktopDropdown();
+        });
+    });
+
+    // Close desktop dropdown on click outside
+    document.addEventListener("click", (e) => {
+        if (!desktopToggle.contains(e.target) && !desktopDropdown.contains(e.target)) {
+            closeDesktopDropdown();
+        }
+    });
 
     // Stop click navigation for Desktop trigger
     desktopToggle.addEventListener("click", (e) => {
@@ -1547,5 +1567,40 @@ function setupNavbarDropdown() {
             mobileDropdown.classList.remove("active");
             mobileToggle.classList.remove("active");
         }
+    });
+}
+
+// Setup smooth scrolling for anchor links with header offset
+function setupSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            const href = this.getAttribute("href");
+            if (href === "#" || this.id === "collections-nav-link" || this.id === "mobile-collections-nav-link") {
+                return;
+            }
+
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+                e.preventDefault();
+                
+                // Close mobile drawer if it's open
+                const drawer = document.getElementById("mobile-drawer");
+                const menuBtn = document.getElementById("mobile-menu-btn");
+                if (drawer && drawer.classList.contains("active")) {
+                    drawer.classList.remove("active");
+                    menuBtn.classList.remove("active");
+                }
+
+                // Calculate scroll position with fixed header offset (80px)
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        });
     });
 }

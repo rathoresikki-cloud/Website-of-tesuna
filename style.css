@@ -40,6 +40,13 @@ html {
     font-size: 16px;
 }
 
+section,
+.hero-section,
+.catalog-section,
+.contact-section {
+    scroll-margin-top: 80px;
+}
+
 body {
     background-color: var(--color-bg-dark);
     color: var(--color-text-body);
@@ -1177,15 +1184,16 @@ h1, h2, h3, h4 {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.08);
     padding: 24px;
     z-index: 1100;
-    max-height: calc(100vh - 120px);
+    height: 240px;
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                visibility 0.3s;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                width 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                visibility 0.5s;
 }
 
 /* Invisible bridge pseudo-element to bridge the gap and hold the hover state */
@@ -1202,6 +1210,7 @@ h1, h2, h3, h4 {
 .collections-dropdown-menu.expanded {
     width: 720px;
     max-width: 90vw;
+    height: calc(90vh - 110px);
 }
 
 .collections-dropdown-menu.active {
@@ -1277,7 +1286,7 @@ h1, h2, h3, h4 {
 .dropdown-category-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
 }
