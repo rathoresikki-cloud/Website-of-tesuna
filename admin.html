@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decor Tesuna | Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-container" class="login-wrapper">
+        <div class="login-card">
+            <h2 class="login-logo">Decor Tesuna</h2>
+            <p class="login-subtitle">Management Control Center</p>
+            <div id="login-error" class="login-error-msg hidden">Invalid username or password.</div>
+            <!-- Login Form -->
+            <div id="login-view">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required placeholder="Enter admin username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-full" style="margin-top: 10px;">Login</button>
+                </form>
+                <a href="#" id="forgot-password-link" style="font-size: 0.8rem; color: var(--gold-solid); text-decoration: underline; margin-top: 16px; display: inline-block;">Forgot Password?</a>
+            </div>
+
+            <!-- Forgot Password Recovery View -->
+            <div id="forgot-view" class="hidden">
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-white); margin-bottom: 20px;">Recover Password</h3>
+                
+                <!-- Step 1: Select Contact Method -->
+                <div id="forgot-step-1">
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 20px; text-align: left;">Choose where to send the password reset verification code:</p>
+                    <form id="recovery-select-form">
+                        <div class="form-group" style="text-align: left; gap: 12px; margin-bottom: 24px;">
+                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--color-text-body); text-transform: none; font-size: 0.9rem;">
+                                <input type="radio" name="recovery-method" value="email" checked style="accent-color: var(--gold-solid);">
+                                Email: tesuna.co@gmail.com
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--color-text-body); text-transform: none; font-size: 0.9rem;">
+                                <input type="radio" name="recovery-method" value="phone" style="accent-color: var(--gold-solid);">
+                                Phone: +91 91 522 441 89
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-full">Send Reset Code</button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Enter Verification Code -->
+                <div id="forgot-step-2" class="hidden">
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 16px; text-align: left;" id="code-sent-message">Verification code sent to your contact.</p>
+                    <form id="recovery-code-form">
+                        <div class="form-group">
+                            <label for="verification-code">Verification Code</label>
+                            <input type="text" id="verification-code" required placeholder="Enter code (Demo: TESUNA2026)">
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-full">Verify Code</button>
+                    </form>
+                </div>
+
+                <!-- Step 3: Enter New Password -->
+                <div id="forgot-step-3" class="hidden">
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 16px; text-align: left;">Enter your new secure password:</p>
+                    <form id="recovery-password-form">
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" required placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required placeholder="Confirm new password">
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-full">Update Password</button>
+                    </form>
+                </div>
+
+                <a href="#" id="back-to-login" style="font-size: 0.8rem; color: var(--color-grey-light); text-decoration: underline; margin-top: 20px; display: inline-block;">Back to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard-container" class="dashboard-wrapper hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">Decor Tesuna</div>
+                <div class="brand-tag">Admin Panel</div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#overview" class="menu-item active" data-page="overview">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Dashboard
+                </a>
+                <a href="#categories" class="menu-item" data-page="categories">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    Categories
+                </a>
+                <a href="#products" class="menu-item" data-page="products">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    Product Types
+                </a>
+                <a href="#homepage-contacts" class="menu-item" data-page="homepage-contacts">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Homepage & Contacts
+                </a>
+                <a href="#inquiries" class="menu-item" data-page="inquiries">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Inquiries Inbox
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" target="_blank" class="view-site-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Visit Website
+                </a>
+                <button id="logout-btn" class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Panel Content -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="content-header">
+                <h1 id="page-title" class="content-title">Dashboard Overview</h1>
+                <div class="user-greeting">Welcome, Administrator</div>
+            </header>
+
+            <!-- PAGES (SPA Modules toggled dynamically via JS) -->
+            <div class="page-container">
+
+                <!-- 1. OVERVIEW PAGE -->
+                <div id="page-overview" class="page-module">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-header">
+                                <span class="stat-title">Categories</span>
+                                <span class="stat-count-icon">📂</span>
+                            </div>
+                            <div class="stat-number" id="stat-categories">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-header">
+                                <span class="stat-title">Subcategories</span>
+                                <span class="stat-count-icon">📁</span>
+                            </div>
+                            <div class="stat-number" id="stat-subcategories">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-header">
+                                <span class="stat-title">Product Types</span>
+                                <span class="stat-count-icon">🏷️</span>
+                            </div>
+                            <div class="stat-number" id="stat-products">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-header">
+                                <span class="stat-title">Total Inquiries</span>
+                                <span class="stat-count-icon">✉️</span>
+                            </div>
+                            <div class="stat-number" id="stat-inquiries">0</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-split" style="margin-top: 40px;">
+                        <div class="split-panel">
+                            <h3 class="panel-section-title">Recent Inquiries</h3>
+                            <div class="table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Client Name</th>
+                                            <th>Interest</th>
+                                            <th>Date Received</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-inquiries-list">
+                                        <!-- Injected via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. CATEGORIES PAGE -->
+                <div id="page-categories" class="page-module hidden">
+                    <div class="panel-actions">
+                        <button class="btn btn-gold" id="btn-add-category">+ Add Category</button>
+                        <button class="btn btn-outline-white" id="btn-add-subcategory">+ Add Subcategory</button>
+                    </div>
+
+                    <div class="categories-list-panel" id="categories-tree-container">
+                        <!-- Hierarchical render with categories, subcategories, weights and controls -->
+                    </div>
+                </div>
+
+                <!-- 3. PRODUCTS PAGE -->
+                <div id="page-products" class="page-module hidden">
+                    <div class="panel-actions" style="justify-content: space-between; display: flex; gap: 20px;">
+                        <div class="filters-wrapper">
+                            <select id="filter-category" class="admin-select">
+                                <option value="all">All Categories</option>
+                                <!-- Injected via JS -->
+                            </select>
+                        </div>
+                        <button class="btn btn-gold" id="btn-add-product">+ Add Product Type</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Subcategory</th>
+                                    <th>Status</th>
+                                    <th>Material</th>
+                                    <th>Images</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-list">
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. HOMEPAGE & CONTACTS PAGE -->
+                <div id="page-homepage-contacts" class="page-module hidden">
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" data-tab="homepage">Homepage Banner</button>
+                        <button class="tab-btn" data-tab="contacts">Contact Details</button>
+                    </div>
+
+                    <!-- Homepage Tab -->
+                    <div id="tab-homepage" class="settings-tab-panel">
+                        <form id="form-homepage-settings" class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label for="home-hero-subtitle">Hero Subtitle</label>
+                                    <input type="text" id="home-hero-subtitle" required>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="home-hero-title">Hero Main Title</label>
+                                    <input type="text" id="home-hero-title" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="home-hero-desc">Hero Description Text</label>
+                                <textarea id="home-hero-desc" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Hero Background Image</label>
+                                <div class="image-uploader-wrapper">
+                                    <div class="image-preview-slot" id="hero-image-preview">
+                                        <!-- Preview -->
+                                    </div>
+                                    <div class="upload-btn-wrapper">
+                                        <button class="btn btn-outline-white" type="button">Select Image</button>
+                                        <input type="file" id="home-hero-image-file" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold">Save Banner Settings</button>
+                        </form>
+                    </div>
+
+                    <!-- Contacts Tab -->
+                    <div id="tab-contacts" class="settings-tab-panel hidden">
+                        <form id="form-contact-settings" class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label for="contact-settings-phone">Phone Call Number</label>
+                                    <input type="text" id="contact-settings-phone" required>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="contact-settings-whatsapp">WhatsApp Number (e.g., 919152244189)</label>
+                                    <input type="text" id="contact-settings-whatsapp" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label for="contact-settings-email">Email Address</label>
+                                    <input type="email" id="contact-settings-email" required>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="contact-settings-hours">Business Hours</label>
+                                    <input type="text" id="contact-settings-hours" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-settings-address">Store Location Address</label>
+                                <textarea id="contact-settings-address" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold">Save Contact Settings</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 5. INQUIRIES PAGE -->
+                <div id="page-inquiries" class="page-module hidden">
+                    <div class="table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Info</th>
+                                    <th>Interest</th>
+                                    <th>Message Details</th>
+                                    <th>Received Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-inquiries-list">
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL DIALOGS -->
+
+    <!-- Category Modal -->
+    <div class="admin-modal" id="modal-category">
+        <div class="admin-modal-card">
+            <h3 class="modal-card-title" id="category-modal-title">Add Category</h3>
+            <form id="form-category">
+                <input type="hidden" id="edit-category-id">
+                <div class="form-group">
+                    <label for="category-title-input">Category Title</label>
+                    <input type="text" id="category-title-input" required placeholder="e.g., Hardware">
+                </div>
+                <div class="form-group">
+                    <label for="category-order-input">Display Order Weight</label>
+                    <input type="number" id="category-order-input" value="0" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-outline-white" type="button" onclick="closeAdminModal('modal-category')">Cancel</button>
+                    <button class="btn btn-gold" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Subcategory Modal -->
+    <div class="admin-modal" id="modal-subcategory">
+        <div class="admin-modal-card">
+            <h3 class="modal-card-title" id="subcategory-modal-title">Add Subcategory</h3>
+            <form id="form-subcategory">
+                <input type="hidden" id="edit-subcategory-id">
+                <input type="hidden" id="edit-subcategory-parent-id">
+                
+                <div class="form-group" id="parent-cat-select-wrapper">
+                    <label for="subcategory-parent-select">Parent Category</label>
+                    <select id="subcategory-parent-select" class="admin-select">
+                        <!-- Injected via JS -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subcategory-title-input">Subcategory Title</label>
+                    <input type="text" id="subcategory-title-input" required placeholder="e.g., Decorative Hardware">
+                </div>
+                <div class="form-group">
+                    <label for="subcategory-order-input">Display Order Weight</label>
+                    <input type="number" id="subcategory-order-input" value="0" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-outline-white" type="button" onclick="closeAdminModal('modal-subcategory')">Cancel</button>
+                    <button class="btn btn-gold" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="admin-modal" id="modal-product">
+        <div class="admin-modal-card modal-wide">
+            <h3 class="modal-card-title" id="product-modal-title">Add Product Type</h3>
+            <form id="form-product">
+                <input type="hidden" id="edit-product-id">
+                <input type="hidden" id="edit-product-parent-cat">
+                <input type="hidden" id="edit-product-parent-subcat">
+                
+                <div class="form-row" id="product-parent-selectors">
+                    <div class="form-group flex-1">
+                        <label for="product-category-select">Category</label>
+                        <select id="product-category-select" class="admin-select"></select>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="product-subcategory-select">Subcategory</label>
+                        <select id="product-subcategory-select" class="admin-select"></select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="product-name-input">Product Name</label>
+                        <input type="text" id="product-name-input" required placeholder="e.g., Cabinet Handles">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="product-material-input">Material</label>
+                        <input type="text" id="product-material-input" placeholder="e.g., Brass, Zinc Alloy" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="product-finishes-input">Available Finishes</label>
+                        <input type="text" id="product-finishes-input" placeholder="e.g., Satin Gold, Matte Black">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="product-use-input">Ideal For / Uses</label>
+                        <input type="text" id="product-use-input" placeholder="e.g., Cabinets, Dressing Tables">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-desc-input">Description</label>
+                    <textarea id="product-desc-input" rows="3" required placeholder="Write a luxury product description..."></textarea>
+                </div>
+
+                <!-- Product Images Manager -->
+                <div class="form-group">
+                    <label>Manage Product Images (Upload up to 5 images)</label>
+                    <div class="product-images-manager-grid">
+                        <!-- Image previews + upload buttons (slots 1 to 5) -->
+                        <div class="img-manage-slot" data-index="0">
+                            <span class="slot-placeholder">Image 1</span>
+                            <img src="" class="hidden">
+                            <input type="file" accept="image/*" class="slot-file-input">
+                            <button type="button" class="slot-remove-btn hidden">×</button>
+                        </div>
+                        <div class="img-manage-slot" data-index="1">
+                            <span class="slot-placeholder">Image 2</span>
+                            <img src="" class="hidden">
+                            <input type="file" accept="image/*" class="slot-file-input">
+                            <button type="button" class="slot-remove-btn hidden">×</button>
+                        </div>
+                        <div class="img-manage-slot" data-index="2">
+                            <span class="slot-placeholder">Image 3</span>
+                            <img src="" class="hidden">
+                            <input type="file" accept="image/*" class="slot-file-input">
+                            <button type="button" class="slot-remove-btn hidden">×</button>
+                        </div>
+                        <div class="img-manage-slot" data-index="3">
+                            <span class="slot-placeholder">Image 4</span>
+                            <img src="" class="hidden">
+                            <input type="file" accept="image/*" class="slot-file-input">
+                            <button type="button" class="slot-remove-btn hidden">×</button>
+                        </div>
+                        <div class="img-manage-slot" data-index="4">
+                            <span class="slot-placeholder">Image 5</span>
+                            <img src="" class="hidden">
+                            <input type="file" accept="image/*" class="slot-file-input">
+                            <button type="button" class="slot-remove-btn hidden">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-outline-white" type="button" onclick="closeAdminModal('modal-product')">Cancel</button>
+                    <button class="btn btn-gold" type="submit">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="admin-modal" id="modal-delete">
+        <div class="admin-modal-card text-center">
+            <h3 class="modal-card-title" style="color: #ff453a; font-size: 1.8rem; margin-bottom: 12px;">Delete Confirmation</h3>
+            <p id="delete-modal-msg" style="margin-bottom: 24px; font-weight: 300;">Are you sure you want to delete this item? This action cannot be undone.</p>
+            <div class="modal-actions" style="justify-content: center; gap: 20px;">
+                <button class="btn btn-outline-white" type="button" onclick="closeAdminModal('modal-delete')">Cancel</button>
+                <button class="btn btn-gold" id="btn-confirm-delete" style="background: linear-gradient(135deg, #ff453a 0%, #ff9f0a 100%); box-shadow: 0 0 15px rgba(255, 69, 58, 0.4); border: none; color: #fff !important;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect scripts -->
+    <script src="image-db.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

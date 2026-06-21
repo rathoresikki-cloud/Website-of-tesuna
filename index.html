@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Decor Tesuna - Premium hardware, wallpapers, bathroom accessories, and louvers. Discover a collection of luxury interior hardware, locks, wall panels, and home decor.">
+    <title>Decor Tesuna | Luxury Hardware & Wall Decor</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">Decor Tesuna</a>
+            <nav class="nav-menu">
+                <a href="#hero" class="nav-link">Home</a>
+                <div class="nav-dropdown-container">
+                    <a href="#" class="nav-link" id="collections-nav-link">Products</a>
+                    <div class="collections-dropdown-menu" id="nav-collections-dropdown">
+                        <!-- Dynamically filled by app.js -->
+                    </div>
+                </div>
+                <a href="#catalog" class="nav-link">Catalog</a>
+                <a href="#contact" class="nav-link">Contact Us</a>
+            </nav>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <a href="#hero" class="drawer-link">Home</a>
+        <div class="mobile-dropdown-container">
+            <a href="#" class="drawer-link" id="mobile-collections-nav-link">Products</a>
+            <div class="mobile-collections-dropdown-menu" id="mobile-nav-collections-dropdown">
+                <!-- Dynamically filled by app.js -->
+            </div>
+        </div>
+        <a href="#catalog" class="drawer-link">Catalog</a>
+        <a href="#contact" class="drawer-link">Contact Us</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-subtitle" id="hero-subtitle">EXQUISITE CRAFTSMANSHIP & DESIGN</span>
+            <h1 class="hero-title" id="hero-title">Elevate Your Living Space</h1>
+            <p class="hero-desc" id="hero-desc">Discover our premium range of luxury decorative hardware, security locks, elegant wall decor, and designer bathroom fittings, curated for the modern aesthetic.</p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn btn-gold">Explore Collections</a>
+                <a href="https://wa.me/919152244189" target="_blank" class="btn btn-outline-white" id="hero-whatsapp-link">WhatsApp Inquiry</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Stats Section -->
+    <section class="intro-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Product Categories</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-card">
+                    <span class="stat-number">Premium</span>
+                    <span class="stat-label">Grey & Gold Finish</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Quality Assurance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section" id="catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Collections</h2>
+                <div class="title-line"></div>
+                <p class="section-desc">Click on any category to reveal its subcategories, then select an item to view detailed specifications, images, and directly inquire with us.</p>
+            </div>
+
+            <!-- Search / Filter Bar -->
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="catalog-search" placeholder="Search product items (e.g., Digital Lock, Wallpaper, Cabinet Handle)...">
+                </div>
+                <div id="search-results" class="search-results-dropdown hidden"></div>
+            </div>
+
+            <!-- Main Categories Grid -->
+            <div class="categories-grid" id="categories-grid">
+                <!-- Dynamic categories will be injected here by app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-card">
+            <button class="modal-close" id="modal-close-btn" aria-label="Close details">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="modal-grid">
+                <!-- Image Slider -->
+                <div class="modal-slider-column">
+                    <div class="slider-container">
+                        <div class="slider-slides" id="modal-slides">
+                            <!-- JS will inject images here -->
+                        </div>
+                        
+                        <button class="slider-btn prev-btn" id="slider-prev" aria-label="Previous image">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <button class="slider-btn next-btn" id="slider-next" aria-label="Next image">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                        
+                        <div class="slider-dots" id="slider-dots">
+                            <!-- JS will inject dots here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Content -->
+                <div class="modal-content-column">
+                    <div class="modal-header-info">
+                        <span class="modal-category-tag" id="modal-product-category">HARDWARE</span>
+                        <h3 class="modal-title" id="modal-product-title">Digital Door Lock</h3>
+                    </div>
+                    
+                    <p class="modal-description" id="modal-product-desc">
+                        Bring ultimate security and elegance to your home with our high-tech digital lock. Features biometric fingerprint access, password validation, RFID cards, and physical overrides. Crafted in matte black and metallic champagne accents.
+                    </p>
+
+                    <div class="modal-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Material:</span>
+                            <span class="meta-value" id="modal-product-material">Brass & Zinc Alloy</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Available Finishes:</span>
+                            <span class="meta-value" id="modal-product-finishes">Gold Satin, Matte Grey, Brass Chrome</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Ideal For:</span>
+                            <span class="meta-value" id="modal-product-use">Residential Doors, Office Entrances</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-action-wrapper">
+                        <a href="#" id="modal-whatsapp-btn" target="_blank" class="btn btn-gold modal-whatsapp-btn">
+                            <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.52 3.449A11.968 11.968 0 0 0 11.996 0C5.397 0 0 5.397 0 11.996c0 2.115.552 4.18 1.597 5.997L0 24l6.196-1.625a11.962 11.962 0 0 0 5.798 1.477h.005c6.598 0 11.996-5.397 11.996-11.996A11.97 11.97 0 0 0 20.52 3.449zM11.996 21.847h-.004a9.92 9.92 0 0 1-5.06-1.385l-.364-.216-3.774.99L3.92 17.51l-.236-.376A9.923 9.923 0 0 1 2.25 11.996c0-5.483 4.464-9.947 9.946-9.947 2.656 0 5.153 1.036 7.03 2.918a9.907 9.907 0 0 1 2.911 7.036c0 5.483-4.464 9.947-9.945 9.947zm5.45-7.25c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            </svg>
+                            <span>Inquire via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact & Footer Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-card-grid">
+                
+                <!-- Contact info card -->
+                <div class="contact-info-panel">
+                    <h3 class="contact-panel-title">Get In Touch</h3>
+                    <p class="contact-panel-desc">Have a project or design in mind? Visit our store or connect with us online. Our experts are ready to assist you in selecting the perfect finishes.</p>
+                    
+                    <div class="contact-details-list">
+                        <!-- Phone -->
+                        <!-- Phone Call -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </div>
+                            <div class="contact-detail-content">
+                                <span class="contact-detail-label">Phone Call</span>
+                                <a href="tel:+919152244189" class="contact-detail-link" id="contact-phone">+91 91 522 441 89</a>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            </div>
+                            <div class="contact-detail-content">
+                                <span class="contact-detail-label">Email Address</span>
+                                <a href="mailto:tesuna.co@gmail.com" class="contact-detail-link" id="contact-email">tesuna.co@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.52 3.449A11.968 11.968 0 0 0 11.996 0C5.397 0 0 5.397 0 11.996c0 2.115.552 4.18 1.597 5.997L0 24l6.196-1.625a11.962 11.962 0 0 0 5.798 1.477h.005c6.598 0 11.996-5.397 11.996-11.996A11.97 11.97 0 0 0 20.52 3.449zM11.996 21.847h-.004a9.92 9.92 0 0 1-5.06-1.385l-.364-.216-3.774.99L3.92 17.51l-.236-.376A9.923 9.923 0 0 1 2.25 11.996c0-5.483 4.464-9.947 9.946-9.947 2.656 0 5.153 1.036 7.03 2.918a9.907 9.907 0 0 1 2.911 7.036c0 5.483-4.464 9.947-9.945 9.947zm5.45-7.25c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-detail-content">
+                                <span class="contact-detail-label">WhatsApp Chat</span>
+                                <a href="https://wa.me/919152244189" target="_blank" class="contact-detail-link" id="contact-whatsapp">Chat on WhatsApp</a>
+                            </div>
+                        </div>
+
+                        <!-- Instagram Link -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </div>
+                            <div class="contact-detail-content">
+                                <span class="contact-detail-label">Instagram</span>
+                                <a href="https://www.instagram.com/decortesuna/" target="_blank" class="contact-detail-link" id="contact-instagram">Decortesuna</a>
+                            </div>
+                        </div>
+
+                        <!-- Store Address -->
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div class="contact-detail-content">
+                                <span class="contact-detail-label">Store Address</span>
+                                <a href="#" target="_blank" class="contact-detail-link" id="contact-address">Decor Tesuna Shop</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Mock/Design -->
+                <div class="contact-form-panel">
+                    <h3 class="form-title">Send a Quick Inquiry</h3>
+                    <form id="quick-inquiry-form" class="inquiry-form">
+                        <div class="form-group">
+                            <label for="form-name">Full Name</label>
+                            <input type="text" id="form-name" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-interest">Category of Interest</label>
+                            <select id="form-interest">
+                                <option value="Decorative Hardware">Decorative Hardware</option>
+                                <option value="Locks & Security">Locks & Security</option>
+                                <option value="Furniture Fitting">Furniture Fitting Hardware</option>
+                                <option value="Bathroom Accessories">Bathroom Accessories</option>
+                                <option value="Wall Decor & Louvers">Wall Decor & Louvers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message">Message</label>
+                            <textarea id="form-message" required rows="3" placeholder="Tell us what you're looking for..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-full">Submit Inquiry to WhatsApp</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Footer brand and copyrights -->
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <div class="footer-brand">Decor Tesuna</div>
+                <div class="footer-copy">&copy; 2026 Decor Tesuna. All rights reserved. Premium hardware, locks, wallpapers & louvers.</div>
+            </div>
+            <div class="footer-credits">
+                Designed & Developed by <span class="developer-name">Bhagyashree Rathod</span> & <span class="developer-name">Mahi Kansara</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect JS file -->
+    <script src="image-db.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
